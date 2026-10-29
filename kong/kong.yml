@@ -1,0 +1,18 @@
+_format_version: "3.0"
+upstreams:
+- name: backend-upstream
+  targets:
+  - target: 127.0.0.1:8081
+    weight: 100
+  - target: 127.0.0.1:8082
+    weight: 100
+services:
+- name: nginx-service
+  host: backend-upstream
+  port: 80
+  protocol: http
+  connect_timeout: 5000
+  routes:
+  - name: lb-route
+    paths:
+    - /app
